@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+home:
+    path: /
+    defaults:
+        _controller: App\Controller\DefaultController::indexAction
+
+login:
+    path: /login
+    defaults:
+        _controller: App\Controller\SecurityController::loginAction
+
+register:
+    path: /register
+    defaults:
+        _controller: App\Controller\SecurityController::registerAction
+
+logout:
+    path: /logout
+    defaults:
+        _controller: App\Controller\SecurityController::logoutAction
