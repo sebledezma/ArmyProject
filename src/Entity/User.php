@@ -3,11 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -23,6 +25,8 @@ class User
 
     /**
      * @ORM\Column(type="string", length=200)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $user_pass;
 
@@ -36,24 +40,77 @@ class User
      */
     private $user_group;
 
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->getUserMail();
     }
 
-    public function getUserId(): ?int
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updateTimestamp()
+    {
+        if ($this->user_registered == null)
+        {
+            $this->user_registered = new \DateTime();
+        }
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->user_id,
+            $this->getUsername(),
+            $this->getPassword()
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $newId,
+            $newUname,
+            $newPass
+            ) = unserialize($serialized);
+
+        $this->user_id=$newId;
+        $this->user_mail=$newUname;
+        $this->user_pass=$newPass;
+    }
+
+    public function getRoles()
+    {
+        //return ['ROLE_A', 'ROLE_B', 'ROLE_TBD1', 'ROLE_TBD2', 'ROLE_ROOT'];
+        return array("ROLE_".$this->getUserGroup());
+    }
+
+    public function getPassword()
+    {
+        return $this->getUserPass();
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->getUserMail();
+    }
+
+    public function eraseCredentials()
+    {
+        $this->setUserPass("");
+    }
+
+    public function getUserId()
     {
         return $this->user_id;
     }
 
-    public function setUserId(int $user_id): self
-    {
-        $this->user_id = $user_id;
-
-        return $this;
-    }
-
-    public function getUserMail(): ?string
+    public function getUserMail(): string
     {
         return $this->user_mail;
     }
@@ -65,7 +122,7 @@ class User
         return $this;
     }
 
-    public function getUserPass(): ?string
+    public function getUserPass(): string
     {
         return $this->user_pass;
     }
@@ -77,7 +134,7 @@ class User
         return $this;
     }
 
-    public function getUserRegistered(): ?\DateTimeInterface
+    public function getUserRegistered(): \DateTimeInterface
     {
         return $this->user_registered;
     }
@@ -89,7 +146,7 @@ class User
         return $this;
     }
 
-    public function getUserGroup(): ?string
+    public function getUserGroup(): string
     {
         return $this->user_group;
     }

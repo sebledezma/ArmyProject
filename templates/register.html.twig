@@ -1,0 +1,18 @@
+{% extends 'login.html.twig' %}
+{% block logreg %}
+    <h1>REGISTER</h1>
+    <form action="{{ path('register') }}" method="post">
+        <label>
+            Soldier:<input type="checkbox" name="_role" checked="checked"/>
+        </label>
+        <label>
+            Username:<input type="email" name="_username" value="{{ last_username }}"/>
+        </label>
+        <label>
+            Password:<input type="password" name="_password" />
+        </label>
+        <button type="submit">REGISTER</button>
+    </form>
+    <button onclick="location.href='{{ path('login') }}';">Login</button>
+    <button onclick="location.href='{{ path('home') }}';">Main page</button>
+{% endblock %}

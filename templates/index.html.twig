@@ -1,7 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block text %}
+{% block body %}
+    <button onclick="location.href='{{ path('login') }}';">Login</button>
+    <button onclick="location.href='{{ path('register') }}';">Register</button>
+
     <h2>US Army management system</h2>
 
     <p>You are now on the US management system project.</p>
+    <p>
+        If you are not logged in you are allow to see the teams and missions only.<br>
+        Logged in soldiers can have access to the whole database.<br>
+        Logged in sergents can assign teams to mission and create missions.
+    </p>
 {% endblock %}

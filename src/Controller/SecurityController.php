@@ -11,11 +11,12 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\UserImport;
+use App\Entity\User;
+//use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends  Controller
 {
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         $authenticationUtils = $this->get('security.authentication_utils');
 
@@ -30,13 +31,20 @@ class SecurityController extends  Controller
 
     public function registerAction(Request $request)
     {
-        $user = new UserImport();
-        $uname = $request->request->get("_username");
-        $clearpass = $request->request->get("_password");
+//        $authenticationUtils = $this->get('security.authentication_utils');
+//        $error = $authenticationUtils->getLastAuthenticationError();
+//        return $this->render('register.html.twig', array('error' => $error));
+        $user = new User();
+        $role = $request->get('_role');
+        $uname = $request->get("_username");
+        $clearpass = $request->get("_password");
         $hashpass = $this->get('security.password_encoder')->encodePassword($user, $clearpass);
-        $user->setUserEmail($uname);
+        $user->setUserMail($uname);
         $user->setUserPass($hashpass);
-        $user->setUserGroup("ADMIN");
+        if ($role)
+            $user->setUserGroup("SOLDIER");
+        else
+            $user->setUserGroup("SERGENT");
         $this->getDoctrine()->getManager()->persist($user);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute("login");
@@ -44,5 +52,6 @@ class SecurityController extends  Controller
 
     public function logoutAction(Request $request)
     {
+
     }
 }
