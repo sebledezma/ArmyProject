@@ -12,7 +12,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
-//use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends  Controller
 {
@@ -34,6 +33,7 @@ class SecurityController extends  Controller
 //        $authenticationUtils = $this->get('security.authentication_utils');
 //        $error = $authenticationUtils->getLastAuthenticationError();
 //        return $this->render('register.html.twig', array('error' => $error));
+//        return $this->render('register.html.twig');
         $user = new User();
         $role = $request->get('_role');
         $uname = $request->get("_username");
@@ -47,7 +47,9 @@ class SecurityController extends  Controller
             $user->setUserGroup("SERGENT");
         $this->getDoctrine()->getManager()->persist($user);
         $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute("login");
+        return $this->render('register.html.twig');
+
+//        return $this->redirectToRoute("login");
     }
 
     public function logoutAction(Request $request)

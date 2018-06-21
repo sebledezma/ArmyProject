@@ -1,0 +1,10 @@
+{% extends 'location/locations.html.twig' %}
+{% block locationbody %}
+    <table border="1">
+        <tr><td>Country:</td><td>{{ location.country }}</td></tr>
+        <tr><td>City:</td><td>{{ location.city }}</td></tr>
+        <tr><td>Street:</td><td>{{ location.street}}</td></tr>
+        <tr><td>Coordinates:</td><td>{{ location.coordinates }}</td></tr>
+    </table>
+    {{ dump(location) }}
+{% endblock %}

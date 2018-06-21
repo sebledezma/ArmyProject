@@ -1,0 +1,12 @@
+{% extends 'mission/missions.html.twig' %}
+{% block missionbody %}
+    {% set team = mission.teamID is null ? "N/A" : mission.teamID.brandName %}
+    {% set location = car.carBrand is null ? "N/A" : car.carBrand.brandName %}
+    <table border="1">
+        <tr><td>Team:</td><td>{{ mission.teamID }}</td></tr>
+        <tr><td>Location:</td><td>{{ mission.locationID }}</td></tr>
+        <tr><td>Start:</td><td>{{ mission.start|date('Y.m.d. H:i:s') }}</td></tr>
+        <tr><td>End:</td><td>{{ mission.start|end('Y.m.d. H:i:s') }}</td></tr>
+    </table>
+    {{ dump(mission) }}
+{% endblock %}

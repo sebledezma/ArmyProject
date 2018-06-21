@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Team Manager
+{% endblock %}
+{% block body %}
+    {% set notices = app.session.flashbag.get('notice') %}
+    {% for msg in notices %}
+        <p style="color:red">{{ msg }}</p>
+    {% endfor %}
+    {% if notices is not empty %}
+        <hr/>
+    {% endif %}
+    {# Routes: carlist(brandId?), carshow(carId), cardel(carId),
+      caredit(carId?) #}
+    <p><a href="{{ path('carlist') }}">Back to the LIST page</a></p>
+    {% block teambody %}
+    {% endblock %}
+{% endblock %}

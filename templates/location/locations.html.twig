@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Location Manager
+{% endblock %}
+{% block body %}
+    {% set notices = app.session.flashbag.get('notice') %}
+    {% for msg in notices %}
+        <p style="color:red">{{ msg }}</p>
+    {% endfor %}
+    {% if notices is not empty %}
+        <hr/>
+    {% endif %}
+    <p><a href="{{ path('locationlist') }}">Back to the LIST page</a></p>
+    {% block locationbody %}
+    {% endblock %}
+{% endblock %}

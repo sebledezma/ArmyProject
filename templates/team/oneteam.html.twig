@@ -1,0 +1,12 @@
+{% extends 'team/teams.html.twig' %}
+{% block teambody %}
+    <table border="1">
+        <tr><td>Name:</td><td>{{ brand }}</td></tr>
+        <tr><td>Model:</td><td>{{ car.carModel }}</td></tr>
+        <tr><td>Visible:</td><td>{{ car.carVisible ? "YES" : "NO" }}</td></tr>
+        <tr><td>Price:</td><td>{{ car.carPrice}}</td></tr>
+        <tr><td>Inserted:</td><td>{{ car.carInserted|date('Y.m.d. H:i:s') }}</td></tr>
+        <tr><td>Modified:</td><td>{{ car.carModified|date('Y.m.d. H:i:s') }}</td></tr>
+    </table>
+    {{ dump(car) }}
+{% endblock %}

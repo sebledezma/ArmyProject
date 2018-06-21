@@ -1,0 +1,35 @@
+{% extends 'mission/missions.html.twig' %}
+{% block missionbody %}
+    <h1>List of Missions</h1>
+    <p><a href="{{ path('missionedit') }}">ADD NEW MISSION</a></p>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Location</th>
+                <th>Datasheet</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mission in missions %}
+            {% set team = mission.teamID is null ? "N/A" : mission.teamID %}
+            <tr>
+                <td>{{ team }}</td>
+                <td>{{ mission.locationID }}</td>
+                <td>
+                    <a href="{{ path('missionshow', { 'id': mission.id }) }}">
+                        SHOW</a></td>
+                <td>
+                    <a href="{{ path('missionedit', { 'id': mission.id }) }}">
+                        EDIT</a></td>
+                <td>
+             <a href="{{ path('missiondel', { 'id': mission.id }) }}">
+                        REMOVE</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

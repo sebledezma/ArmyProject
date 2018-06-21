@@ -9,34 +9,34 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User implements UserInterface
+class User implements UserInterface , \Serializable
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", options={"comment":"User ID"} )
      */
     private $user_id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=190, nullable=false, unique=true, options={"comment":"Email address"} )
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $user_mail;
 
     /**
-     * @ORM\Column(type="string", length=200)
-     * @Assert\NotBlank()
-     * @Assert\Email()
+     * @ORM\Column(type="string", length=200, nullable=false, options={"comment":"User password"} )
      */
     private $user_pass;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", length=100, nullable=false, options={"comment":"Registration date"} )
      */
     private $user_registered;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=false, options={"comment":"Root rank"} )
      */
     private $user_group;
 
@@ -122,6 +122,30 @@ class User implements UserInterface
         return $this;
     }
 
+//    /**
+//     * Set userEmail
+//     *
+//     * @param string $userEmail
+//     *
+//     * @return User
+//     */
+//    public function setUserMail($userEmail)
+//    {
+//        $this->user_mail = $userEmail;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get userEmail
+//     *
+//     * @return string
+//     */
+//    public function getUserMail()
+//    {
+//        return $this->user_mail;
+//    }
+
     public function getUserPass(): string
     {
         return $this->user_pass;
@@ -134,12 +158,12 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUserRegistered(): \DateTimeInterface
+    public function getUserRegistered(): \DateTime
     {
         return $this->user_registered;
     }
 
-    public function setUserRegistered(\DateTimeInterface $user_registered): self
+    public function setUserRegistered(\DateTime $user_registered): self
     {
         $this->user_registered = $user_registered;
 

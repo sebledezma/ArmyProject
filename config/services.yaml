@@ -26,3 +26,18 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    app.crudFactory:
+        class: App\Repository\CrudFactory
+        arguments: ["@doctrine.orm.entity_manager", "@form.factory", "@request_stack"]
+    app.locationRepository:
+        class: App\Repository\ILocationRepository
+        public: true
+        factory: [ "@app.crudFactory", getLocationRepository ]
+    app.missionRepository:
+        class: App\Repository\IMissionRepository
+        public: true
+        factory: [ "@app.crudFactory", getMissionRepository ]
+    app.teamRepository:
+        class: App\Repository\ITeamRepository
+        public: true
+        factory: [ "@app.crudFactory", getTeamRepository ]

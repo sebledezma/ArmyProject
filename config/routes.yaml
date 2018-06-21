@@ -21,3 +21,63 @@ logout:
     path: /logout
     defaults:
         _controller: App\Controller\SecurityController::logoutAction
+
+teamlist:
+    path: /teamlist
+    defaults:
+        _controller: App\Controller\TeamController::listAction
+
+teamshow:
+    path: /teamshow/{id}
+    defaults:
+        _controller: App\Controller\TeamController::showAction
+
+teamdel:
+    path: /teamdel/{id}
+    defaults:
+        _controller: App\Controller\TeamController::delAction
+
+teamedit:
+    path: /teamedit/{id}
+    defaults:
+        _controller: App\Controller\TeamController::editAction
+
+locationlist:
+    path: /locationlist
+    defaults:
+        _controller: App\Controller\LocationController::listAction
+
+locationshow:
+    path: /locationshow/{id}
+    defaults:
+        _controller: App\Controller\LocationController::showAction
+
+locationdel:
+    path: /locationdel/{id}
+    defaults:
+        _controller: App\Controller\LocationController::delAction
+
+locationedit:
+    path: /locationedit/{id}
+    defaults:
+        _controller: App\Controller\LocationController::editAction
+
+missionlist:
+    path: /missionlist
+    defaults:
+        _controller: App\Controller\MissionController::listAction
+
+missionshow:
+    path: /missionshow/{id}
+    defaults:
+        _controller: App\Controller\MissionController::showAction
+
+missiondel:
+    path: /missiondel/{id}
+    defaults:
+        _controller: App\Controller\MissionController::delAction
+
+missionedit:
+    path: /missionedit/{id}
+    defaults:
+        _controller: App\Controller\MissionController::editAction

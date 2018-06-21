@@ -1,5 +1,6 @@
-{% block connection %}
-
+{% extends 'base.html.twig' %}
+{% block title %}Login{% endblock %}
+{% block body %}
     {% if error %}
         <p>{{ error.messageKey }}</p>
         {{ dump(error.messageData) }}
@@ -18,20 +19,17 @@
         Not logged in
     {% endif %}
 
-    {% block logreg %}
-        <h1>LOGIN</h1>
-        <form action="{{ path('login') }}" method="post">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
-            <label>
-                Username:<input type="email" name="_username" value="{{ last_username }}" />
-            </label>
-            <label>
-                Password:<input type="password" name="_password" />
-            </label>
-            <button type="submit">LOGIN</button>
-        </form>
-        <button onclick="location.href='{{ path('register') }}';">Register</button>
-        <button onclick="location.href='{{ path('home') }}';">Main page</button>
-    {% endblock %}
-
+    <h1>LOGIN</h1>
+    <form action="{{ path('login') }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+        <label>
+            Username:<input type="email" name="_username" value="{{ last_username }}" />
+        </label><br>
+        <label>
+            Password:<input type="password" name="_password" />
+        </label><br>
+        <button type="submit">LOGIN</button>
+    </form>
+    <button onclick="location.href='{{ path('register') }}';">Register</button>
+    <button onclick="location.href='{{ path('home') }}';">Main page</button>
 {% endblock %}

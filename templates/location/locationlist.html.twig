@@ -1,0 +1,35 @@
+{% extends standalone ? 'location/locations.html.twig' : 'base.html.twig' %}
+{% block locationbody %}
+    <h1>List of Locations</h1>
+    <p><a href="{{ path('locationedit') }}">ADD NEW LOCATION</a></p>
+    <br/>
+    <table>
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Coordinates</th>
+                <th>Datasheet</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for location in locations %}
+            {% set Country = location.country is null ? "N/A" : location.country %}
+            <tr>
+                <td>{{ Country }}</td>
+                <td>{{ location.coordinates }}</td>
+                <td>
+                    <a href="{{ path('locationshow', { 'id': location.id }) }}">
+                        SHOW</a></td>
+                <td>
+                    <a href="{{ path('locationedit', { 'id': location.id }) }}">
+                        EDIT</a></td>
+                <td>
+                    <a href="{{ path('locationdel', { 'id': location.id }) }}">
+                        REMOVE</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
